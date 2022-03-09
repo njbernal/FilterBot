@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Example</title>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        // Usage: let request = new SpotifyRequest('Artist Name', 'Type [album, track]')
+        // This is an example of connecting to the Spotify API to get the token, then using the token to make a public request
+        // Only open endpoints will work without user auth.
+
+        class SpotifyRequest {
+            constructor(artist, type) {
+                if (!artist || !type) { 
+                    container.innerHTML = "Usage: let request = new SpotifyRequest('Artist Name', 'Type [album, track]')";
+                    throw new Error("Invalid usage");
+                } 
+                container.innerHTML = "";
+                this.artist = artist;
+                this.type = type;
+                this.createRequest();
+            }
+
+            createRequest = async () => {
+
+                // These two need to be hidden and should not go to a public git
+                const client_id = "aa32d994a06d4ea1b780d884a34489ef";
+                const client_secret = "7c51f2e6df384abcac7ddf5635728a64";
+
+                const url = 'https://accounts.spotify.com/api/token';
+                const container = document.getElementById('container');
+
+                try {
+                    const tokenResponse = await fetch(url, {
+                        method: 'POST',
+                        body: 'grant_type=client_credentials',
+                        headers: {
+                            'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
+                            'Content-Type':'application/x-www-form-urlencoded',
+                            "Access-Control-Allow-Origin":"*",
+                            "Access-Control-Allow-Credentials":"true",
+                        }
+                    });
+
+                    if (tokenResponse.ok) {
+                        let jsonResponse = await tokenResponse.json();
+                        const token = jsonResponse.access_token;
+                        
+                        const response = await fetch(`https://api.spotify.com/v1/search?q=artist:${this.artist}&type=${this.type}`, {
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        }
+                        });
+
+                        if (response.ok) {
+                            jsonResponse = await response.json();
+                            container.innerHTML = `<pre>${JSON.stringify(jsonResponse, null, 4)}</pre`;
+                        }
+                    }
+                } 
+                catch (error) {
+                    throw new Error(error);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

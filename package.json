@@ -2,23 +2,31 @@
   "name": "discord-spotify",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "16.x"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "node test.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/IanZGray/FilterBot.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/IanZGray/FilterBot/issues"
-  },
-  "homepage": "https://github.com/IanZGray/FilterBot#readme",
   "dependencies": {
     "discord.js": "^13.6.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3"
-  }
+  },
+  "devDependencies": {
+    "got": "^11.3.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njbernal/FilterBot.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }

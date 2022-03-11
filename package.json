@@ -1,7 +1,7 @@
 {
   "name": "discord-spotify",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Discord Bot",
   "engines": {
     "node": "16.x"
   },
@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "discord.js": "^13.6.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.3"
+    "ejs": "^3.1.5",
+    "express": "^4.15.2"
   },
   "devDependencies": {
     "got": "^11.3.0",
